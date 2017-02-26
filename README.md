@@ -1,3 +1,5 @@
+[![Clojars Project](https://img.shields.io/clojars/v/solitaire-core.svg)](https://clojars.org/solitaire-core)
+
 # solitaire-core
 
 A Clojure library designed to ... well, that part is up to you.
