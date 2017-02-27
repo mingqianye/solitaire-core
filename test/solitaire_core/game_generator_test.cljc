@@ -1,6 +1,6 @@
-(ns solitaire-core.game_generator_test
+(ns solitaire-core.game-generator-test
   (:require [clojure.test :refer :all]
-            [solitaire-core.game_generator :refer :all]))
+            [solitaire-core.game-generator :refer :all]))
 
 (deftest new-game-contains-52-cards
   (testing "Test if a new game contains 52 cards"

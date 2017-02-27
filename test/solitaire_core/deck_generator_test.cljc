@@ -1,11 +1,11 @@
-(ns solitaire-core.deck_generator_test
+(ns solitaire-core.deck-generator-test
   (:require [clojure.test :refer :all]
-            [solitaire-core.deck_generator :refer :all]))
+            [solitaire-core.deck-generator :refer :all]))
 
 (deftest new-deck-contains-52-cards
   (testing "Test if a new deck contains 52 cards"
-    (is (= (count (new_deck)) 52))))
+    (is (= (count (new-deck)) 52))))
 
 (deftest random-deck-contains-52-cards
   (testing "Test if a new deck contains 52 cards"
-    (is (= (count (random_deck)) 52))))
+    (is (= (count (random-deck)) 52))))

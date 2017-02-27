@@ -1,11 +1,11 @@
 (ns solitaire-core.core
-  (:require [solitaire-core.deck_generator :as deck_generator])
+  (:require [solitaire-core.deck-generator :as deck-generator])
   )
 
 (defn foo
   "I don't do a whole lot."
   []
-  (println (deck_generator/new_deck)))
+  (println (deck-generator/new-deck)))
 
 (defn bar
   "I don't do a whole lot."

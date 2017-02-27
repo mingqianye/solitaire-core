@@ -1,9 +1,9 @@
-(ns solitaire-core.game_generator
-  (:require [solitaire-core.deck_generator :as deck_generator]
+(ns solitaire-core.game-generator
+  (:require [solitaire-core.deck-generator :as deck-generator]
   ))
 
 (defn new-game []
-  (let [cards (deck_generator/random_deck)]
+  (let [cards (deck-generator/random-deck)]
     {
      :stock (subvec cards 0 24)
      :waste []
