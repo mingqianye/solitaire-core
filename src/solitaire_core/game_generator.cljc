@@ -6,16 +6,24 @@
   (let [cards (deck_generator/random_deck)]
     {
      :stock (subvec cards 0 24)
+     :waste []
      :foundation [[] [] [] []]
      :tableau [
-               (subvec cards 24 25)
-               (subvec cards 25 27)
-               (subvec cards 27 30)
-               (subvec cards 30 34)
-               (subvec cards 34 39)
-               (subvec cards 39 45)
-               (subvec cards 45 52) ]
-
+               {:face-down []
+                :face-up   (subvec cards 24 25)}
+               {:face-down (subvec cards 25 26)
+                :face-up   (subvec cards 26 27)}
+               {:face-down (subvec cards 27 29)
+                :face-up   (subvec cards 29 30)}
+               {:face-down (subvec cards 30 33)
+                :face-up   (subvec cards 33 34)}
+               {:face-down (subvec cards 34 38) 
+                :face-up   (subvec cards 38 39)}
+               {:face-down (subvec cards 39 44)
+                :face-up   (subvec cards 44 45)}
+               {:face-down (subvec cards 45 51)
+                :face-up   (subvec cards 51 52)}
+               ]
      }
     )
   )
