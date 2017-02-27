@@ -7,27 +7,21 @@
   (testing "Test if can refresh 0 cards from stock to waste"
     (let [game {:stock [] :waste []}]
       (is (= {:stock [] :waste []} (refresh-waste game)))))
-
   (testing "Test if can refresh 1 cards from stock to waste"
     (let [game {:stock [:a] :waste []}]
       (is (= {:stock [] :waste [:a]} (refresh-waste game)))))
-
   (testing "Test if can refresh 1 cards from waste to stock and back to waste"
     (let [game {:stock [] :waste [:a]}]
       (is (= {:stock [] :waste [:a]} (refresh-waste game)))))
-
   (testing "Test if can refresh 2 cards from waste to stock and back to waste"
     (let [game {:stock [] :waste [:a :b]}]
       (is (= {:stock [] :waste [:a :b]} (refresh-waste game)))))
-
   (testing "Test if can refresh 2 cards from stock to waste"
     (let [game {:stock [:a :b] :waste []}]
       (is (= {:stock [] :waste [:b :a]} (refresh-waste game)))))
-         
   (testing "Test if can refresh 2 cards from stock to waste"
     (let [game {:stock [:a :b] :waste [:c]}]
       (is (= {:stock [] :waste [:b :a :c]} (refresh-waste game)))))
-
   (testing "Test if can refresh 2 cards from stock to waste"
     (let [game {:stock [:a :b :c :d] :waste [:e :f :g]}]
       (is (= {:stock [:g :f :e :a] :waste [:d :c :b]} (refresh-waste game))))))
