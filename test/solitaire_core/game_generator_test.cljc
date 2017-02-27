@@ -1,6 +1,7 @@
 (ns solitaire-core.game-generator-test
   (:require [clojure.test :refer :all]
-            [solitaire-core.game-generator :refer :all]))
+            [solitaire-core.game-generator :refer :all]
+            ))
 
 (deftest new-game-contains-52-cards
   (testing "Test if a new game contains 52 cards"
@@ -8,9 +9,9 @@
     (is (= (-> game :stock count) 24))
     (is (= (-> game :waste count) 0))
     (is (= (-> game :foundation (nth 0) count) 0))
-    (is (= (-> game :foundation (nth 0) count) 0))
-    (is (= (-> game :foundation (nth 0) count) 0))
-    (is (= (-> game :foundation (nth 0) count) 0))
+    (is (= (-> game :foundation (nth 1) count) 0))
+    (is (= (-> game :foundation (nth 2) count) 0))
+    (is (= (-> game :foundation (nth 3) count) 0))
     (is (= (-> game :tableau (nth 0) :face-down count) 0))
     (is (= (-> game :tableau (nth 1) :face-down count) 1))
     (is (= (-> game :tableau (nth 2) :face-down count) 2))

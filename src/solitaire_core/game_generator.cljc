@@ -2,6 +2,7 @@
   (:require [solitaire-core.deck-generator :as deck-generator]
   ))
 
+
 (defn new-game []
   (let [cards (deck-generator/random-deck)]
     {
@@ -23,7 +24,7 @@
                 :face-up   (subvec cards 44 45)}
                {:face-down (subvec cards 45 51)
                 :face-up   (subvec cards 51 52)}
-               ]
+              ]
      }
     )
   )
