@@ -8,23 +8,17 @@
     {
      :stock (subvec cards 0 24)
      :waste []
-     :foundation [[] [] [] []]
-     :tableau [
-               {:face-down []
-                :face-up   (subvec cards 24 25)}
-               {:face-down (subvec cards 25 26)
-                :face-up   (subvec cards 26 27)}
-               {:face-down (subvec cards 27 29)
-                :face-up   (subvec cards 29 30)}
-               {:face-down (subvec cards 30 33)
-                :face-up   (subvec cards 33 34)}
-               {:face-down (subvec cards 34 38) 
-                :face-up   (subvec cards 38 39)}
-               {:face-down (subvec cards 39 44)
-                :face-up   (subvec cards 44 45)}
-               {:face-down (subvec cards 45 51)
-                :face-up   (subvec cards 51 52)}
-              ]
+     :foundation-1 []
+     :foundation-2 []
+     :foundation-3 []
+     :foundation-4 []
+     :tableau-1 {:face-down []                   :face-up   (subvec cards 24 25)}
+     :tableau-2 {:face-down (subvec cards 25 26) :face-up   (subvec cards 26 27)}
+     :tableau-3 {:face-down (subvec cards 27 29) :face-up   (subvec cards 29 30)}
+     :tableau-4 {:face-down (subvec cards 30 33) :face-up   (subvec cards 33 34)}
+     :tableau-5 {:face-down (subvec cards 34 38) :face-up   (subvec cards 38 39)}
+     :tableau-6 {:face-down (subvec cards 39 44) :face-up   (subvec cards 44 45)}
+     :tableau-7 {:face-down (subvec cards 45 51) :face-up   (subvec cards 51 52)}
      }
     )
   )

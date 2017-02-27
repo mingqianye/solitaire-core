@@ -3,7 +3,7 @@
             [solitaire-core.game-command :refer :all]
             [solitaire-core.game-policy :refer :all]))
 
-(deftest can-refresh-waste
+(deftest test-refresh-waste
   (testing "Test if can move 0 cards from stock to waste"
     (let [game {:stock [] :waste []}]
       (is (= {:stock [] :waste []} (refresh-waste game)))))
@@ -30,8 +30,8 @@
 
   (testing "Test if can move 2 cards from stock to waste"
     (let [game {:stock [:a :b :c :d] :waste [:e :f :g]}]
-      (is (= {:stock [:g :f :e :a] :waste [:d :c :b]} (refresh-waste game)))))
+      (is (= {:stock [:g :f :e :a] :waste [:d :c :b]} (refresh-waste game))))))
 
-         )
+
 
 
