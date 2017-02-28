@@ -2,11 +2,22 @@
 
 # solitaire-core
 
-A Clojure library designed to ... well, that part is up to you.
+Logic for solitaire.
 
 ## Usage
 
-FIXME
+TBD
+
+## Run All Tests
+
+Run all tests:
+```
+lein test
+```
+
+## Setup Auto Testing During Development
+
+Add `{:user {:plugins [[com.jakemccrary/lein-test-refresh "0.18.1"]]}}` to `~/.lein/profiles.clj`
 
 ## License
 
