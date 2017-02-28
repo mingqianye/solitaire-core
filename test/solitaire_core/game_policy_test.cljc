@@ -12,20 +12,13 @@
     (is (true? (from-has-at-least-n-element? {:m {:a [1 2 3]} :n 2 :from :a })))
     (is (false? (from-has-at-least-n-element? {:m {:a [1 2 3]} :n 4 :from :b})))))
 
-(deftest test-from-valid-piles?
+(deftest test-valid-from-to-piles?
   (testing "Test if is from valid piles"
-    (is (true? (from-valid-piles? {:from :waste})))
-    (is (true? (from-valid-piles? {:from :tableau-3-face-up})))
-    (is (true? (from-valid-piles? {:from :foundation-2})))
-    (is (false? (from-valid-piles? {:from :stock})))
-    (is (false? (from-valid-piles? {:from :tableau-2-face-down})))))
-
-(deftest test-to-valid-piles?
-  (testing "Test if is to valid piles"
-    (is (true? (to-valid-piles?  {:to :tableau-3-face-up})))
-    (is (true? (to-valid-piles?  {:to :foundation-2})))
-    (is (false? (to-valid-piles? {:to :stock})))
-    (is (false? (to-valid-piles? {:to :tableau-2-face-down})))))
+    (is (true? (valid-from-to-piles? {:from :waste :to :tableau-3-face-up})))
+    (is (true? (valid-from-to-piles? {:from :tableau-3-face-up :to :foundation-2})))
+    (is (false? (valid-from-to-piles? {:from :foundation-2 :to :stock})))
+    (is (false? (valid-from-to-piles? {:from :stock})))
+    (is (false? (valid-from-to-piles? {:from :tableau-2-face-down :to :tableau-2-face-up})))))
 
 (deftest test-from-to-are-different?
   (testing "Test if is to valid piles"
