@@ -32,13 +32,30 @@
     (is (true? (from-to-are-different? :from [:a :b] :to [:b])))
     (is (false? (from-to-are-different? :from [:a :b] :to [:a :b])))))
 
-(deftest test-can-stack-cards?
+(deftest test-can-stack-two-cards?
   (testing "Test if two cards can be stacked together"
-    (is (true? (can-stack-cards? :top-card {:suit :spade :number 1} :bottom-card {:suit :diamond :number 2})))
-    (is (true? (can-stack-cards? :top-card {:suit :heart :number 4} :bottom-card {:suit :club :number 5})))
-    (is (false? (can-stack-cards? :top-card {:suit :diamond :number 4} :bottom-card {:suit :spade :number 6})))
+    (is (true? (can-stack-two-cards? :top-card {:suit :spade :number 1} :bottom-card {:suit :diamond :number 2})))
+    (is (true? (can-stack-two-cards? :top-card {:suit :heart :number 4} :bottom-card {:suit :club :number 5})))
+    (is (false? (can-stack-two-cards? :top-card {:suit :diamond :number 4} :bottom-card {:suit :spade :number 6})))
            ))
 
+(deftest test-can-stack-two-piles?
+  (testing "Test if two piles can be stacked together"
+    (is (true? (can-stack-two-piles? :m    {:a [{:suit :spade :number 7} {:suit :diamond :number 6}]
+                                            :b [{:suit :spade :number 9} {:suit :heart :number 8}]}
+                                     :n    2
+                                     :from [:a]
+                                     :to   [:b])))
+    (is (false? (can-stack-two-piles? :m    {:a [{:suit :spade :number 7} {:suit :diamond :number 6}]
+                                             :b [{:suit :spade :number 9} {:suit :heart :number 8}]}
+                                      :n    1
+                                      :from [:a]
+                                      :to   [:b])))
+    (is (false? (can-stack-two-piles? :m    {:a [{:suit :spade :number 7} {:suit :diamond :number 6}]
+                                             :b [{:suit :spade :number 8} {:suit :heart :number 7}]}
+                                      :n    1
+                                      :from [:a]
+                                      :to   [:b])))))
 
 (deftest test-can-move-last?
   (testing "number elements in from-path"

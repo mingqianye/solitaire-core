@@ -27,7 +27,7 @@
 (defn from-to-are-different? [& {:keys [from to]}]
   (not= from to))
 
-(defn can-stack-cards? [& {:keys [top-card bottom-card]}]
+(defn can-stack-two-cards? [& {:keys [top-card bottom-card]}]
   (let [stack-rule {:spade   #{:diamond :heart}
                     :club    #{:diamond :heart}
                     :diamond #{:spade :club}
@@ -37,6 +37,12 @@
     (= (:number top-card) (dec (:number bottom-card)))
     (contains? possible-top-card-suit (:suit top-card)))))
 
+(defn can-stack-two-piles? [& {:keys [m n from to]}]
+  (let [top-pile (get-in m from)
+        top-card (get top-pile (- (count top-pile) n))
+        bottom-pile (get-in m to)
+        bottom-card (last bottom-pile)]
+    (can-stack-two-cards? :top-card top-card :bottom-card bottom-card)))
 
 (defn can-move-last? [& {:keys [m n from to]}]
   "(m n [from-path] [to-path])"
