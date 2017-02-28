@@ -14,12 +14,12 @@
        copy-from-waste-to-stock
      )))
 
-(defn move-last [& {:keys [m n from to]}]
-  "(m n [from-path] [to-path])"
+(defn move-last [{:keys [m n from to]}]
+  "(m n from-key to-key)"
   (let [
-        new_from (drop-last n (get-in m from))
-        new_to   (concat (get-in m to) (take-last n (get-in m from)))
+        new_from (drop-last n (get m from))
+        new_to   (concat (get m to) (take-last n (get m from)))
         ]
     (-> m
-      (assoc-in from new_from)
-      (assoc-in to new_to))))
+      (assoc-in [from] new_from)
+      (assoc-in [to] new_to))))

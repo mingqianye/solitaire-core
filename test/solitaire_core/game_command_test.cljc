@@ -28,7 +28,5 @@
 
 (deftest test-move-last
   (testing "Test if can move 0 objects from [from-path] to [to-path]"
-    (let [random-map {:a {:b [1 2 3 4]} :c [5 6 7 8]}]
-      (is (= {:a {:b [1 2]} :c [5 6 7 8 3 4]} (move-last :m random-map :n 2 :from [:a :b] :to [:c]))))))
-
-
+    (let [random-map {:a [1 2 3 4] :c [5 6 7 8]}]
+      (is (= {:a [1 2] :c [5 6 7 8 3 4]} (move-last {:m random-map :n 2 :from :a :to :c}))))))

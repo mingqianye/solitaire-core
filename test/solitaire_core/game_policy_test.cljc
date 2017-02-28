@@ -9,28 +9,28 @@
 
 (deftest test-from-has-at-least-n-element?
   (testing "Test if a new game is not won"
-    (is (true? (from-has-at-least-n-element? {:m {:a {:b [1 2 3]}} :n 2 :from [:a :b]})))
-    (is (false? (from-has-at-least-n-element? {:m {:a {:b [1 2 3]}} :n 4 :from [:a :b]})))))
+    (is (true? (from-has-at-least-n-element? {:m {:a [1 2 3]} :n 2 :from :a })))
+    (is (false? (from-has-at-least-n-element? {:m {:a [1 2 3]} :n 4 :from :b})))))
 
 (deftest test-from-valid-piles?
   (testing "Test if is from valid piles"
-    (is (true? (from-valid-piles? {:from [:waste]})))
-    (is (true? (from-valid-piles? {:from [:tableau-3 :face-up]})))
-    (is (true? (from-valid-piles? {:from [:foundation-2]})))
-    (is (false? (from-valid-piles? {:from [:stock]})))
-    (is (false? (from-valid-piles? {:from [:tableau-2 :face-down]})))))
+    (is (true? (from-valid-piles? {:from :waste})))
+    (is (true? (from-valid-piles? {:from :tableau-3-face-up})))
+    (is (true? (from-valid-piles? {:from :foundation-2})))
+    (is (false? (from-valid-piles? {:from :stock})))
+    (is (false? (from-valid-piles? {:from :tableau-2-face-down})))))
 
 (deftest test-to-valid-piles?
   (testing "Test if is to valid piles"
-    (is (true? (to-valid-piles?  {:to [:tableau-3 :face-up]})))
-    (is (true? (to-valid-piles?  {:to [:foundation-2]})))
-    (is (false? (to-valid-piles? {:to [:stock]})))
-    (is (false? (to-valid-piles? {:to [:tableau-2 :face-down]})))))
+    (is (true? (to-valid-piles?  {:to :tableau-3-face-up})))
+    (is (true? (to-valid-piles?  {:to :foundation-2})))
+    (is (false? (to-valid-piles? {:to :stock})))
+    (is (false? (to-valid-piles? {:to :tableau-2-face-down})))))
 
 (deftest test-from-to-are-different?
   (testing "Test if is to valid piles"
-    (is (true? (from-to-are-different? {:from [:a :b] :to [:b]})))
-    (is (false? (from-to-are-different? {:from [:a :b] :to [:a :b]})))))
+    (is (true? (from-to-are-different? {:from :a :to :b})))
+    (is (false? (from-to-are-different? {:from :a :to :a })))))
 
 (deftest test-can-stack-two-cards?
   (testing "Test if two cards can be stacked together"
@@ -45,21 +45,21 @@
           pile-2 [{:suit :spade :number 9} {:suit :heart :number 8}]
           pile-3 [{:suit :spade :number 8} {:suit :heart :number 7}]]
     
-    (is (true? (can-stack-two-piles? {:m {:a pile-1 :b pile-2} :n 2 :from [:a] :to [:b]})))
-    (is (false? (can-stack-two-piles? {:m {:a pile-1 :b pile-2}  :n 1 :from [:a] :to [:b]})))
-    (is (false? (can-stack-two-piles? {:m {:a pile-1 :b pile-3} :n 1 :from [:a] :to [:b]}))))))
+    (is (true? (can-stack-two-piles? {:m {:a pile-1 :b pile-2} :n 2 :from :a :to :b})))
+    (is (false? (can-stack-two-piles? {:m {:a pile-1 :b pile-2}  :n 1 :from :a :to :b})))
+    (is (false? (can-stack-two-piles? {:m {:a pile-1 :b pile-3} :n 1 :from :a :to :b}))))))
 
 (deftest test-can-move?
   (testing "number elements in from-path"
     (let [pile-1 [{:suit :spade :number 7} {:suit :diamond :number 6}]
           pile-2 [{:suit :spade :number 9} {:suit :heart :number 8}]
           pile-3 [{:suit :spade :number 8} {:suit :heart :number 7}]]
-      (is (true? (can-move? {:m {:tableau-1 {:face-up pile-2} :tableau-2 {:face-up pile-1}}
+      (is (true? (can-move? {:m {:tableau-1-face-up pile-2 :tableau-2-face-up pile-1}
                               :n 2 
-                              :from [:tableau-2 :face-up] 
-                              :to [:tableau-1 :face-up]}))) 
-      (is (false? (can-move? {:m {:tableau-1 {:face-up pile-2} :tableau-2 {:face-up pile-1}}
+                              :from :tableau-2-face-up 
+                              :to :tableau-1-face-up}))) 
+      (is (false? (can-move? {:m {:tableau-1-face-up pile-2 :tableau-2-face-up pile-1}
                               :n 1 
-                              :from [:tableau-2 :face-up] 
-                              :to [:tableau-1 :face-up]}))) 
+                              :from :tableau-2-face-up 
+                              :to :tableau-1-face-up}))) 
            )))
