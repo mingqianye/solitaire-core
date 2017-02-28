@@ -14,7 +14,7 @@
        copy-from-waste-to-stock
      )))
 
-(defn move-last [{:keys [m n from to]}]
+(defn move [{:keys [m n from to]}]
   "(m n from-key to-key)"
   (let [
         new_from (drop-last n (get m from))

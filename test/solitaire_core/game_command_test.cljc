@@ -26,7 +26,7 @@
     (let [game {:stock [:a :b :c :d] :waste [:e :f :g]}]
       (is (= {:stock [:g :f :e :a] :waste [:d :c :b]} (refresh-waste game))))))
 
-(deftest test-move-last
+(deftest test-move
   (testing "Test if can move 0 objects from [from-path] to [to-path]"
     (let [random-map {:a [1 2 3 4] :c [5 6 7 8]}]
-      (is (= {:a [1 2] :c [5 6 7 8 3 4]} (move-last {:m random-map :n 2 :from :a :to :c}))))))
+      (is (= {:a [1 2] :c [5 6 7 8 3 4]} (move {:m random-map :n 2 :from :a :to :c}))))))

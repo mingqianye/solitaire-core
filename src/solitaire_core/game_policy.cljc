@@ -2,11 +2,10 @@
 
 (defn won? [game]
   (-> game
-      :foundation
-      flatten
-      count
-      (= 52)
-      ))
+    (juxt :foundation-1 :foundation-2 :foundation-3 :foundation-4)
+    flatten
+    count
+    (= 52)))
 
 (defn from-has-at-least-n-element? [{:keys [m n from]}]
   (>= (count (get m from)) n))
