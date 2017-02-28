@@ -1,5 +1,13 @@
 (ns solitaire-core.game-policy)
 
+(def to-piles
+  #{:foundation-1 :foundation-2 :foundation-3 :foundation-4
+    :tableau-1-face-up :tableau-2-face-up :tableau-3-face-up :tableau-4-face-up
+    :tableau-5-face-up :tableau-6-face-up :tableau-7-face-up})
+
+(def from-piles
+  (conj to-piles :waste))
+
 (defn won? [game]
   (-> game
     (juxt :foundation-1 :foundation-2 :foundation-3 :foundation-4)
@@ -11,13 +19,9 @@
   (>= (count (get m from)) n))
 
 (defn valid-from-to-piles? [{:keys [from to]}]
-  (let [to-piles #{:foundation-1 :foundation-2 :foundation-3 :foundation-4
-                   :tableau-1-face-up :tableau-2-face-up :tableau-3-face-up :tableau-4-face-up
-                   :tableau-5-face-up :tableau-6-face-up :tableau-7-face-up}
-        from-piles (conj to-piles :waste)]
-    (and
-      (contains? to-piles to)
-      (contains? from-piles from))))
+  (and
+    (contains? to-piles to)
+    (contains? from-piles from)))
 
 (defn from-to-are-different? [{:keys [from to]}]
   (not= from to))

@@ -15,7 +15,7 @@
      )))
 
 (defn move [{:keys [m n from to]}]
-  "(m n from-key to-key)"
+  "input: {:m game :n num-cards :from from-key :to to-key}"
   (let [
         new_from (drop-last n (get m from))
         new_to   (concat (get m to) (take-last n (get m from)))
