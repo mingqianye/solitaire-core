@@ -12,25 +12,17 @@
     (is (true? (from-has-at-least-n-element? {:m {:a [1 2 3]} :n 2 :from :a })))
     (is (false? (from-has-at-least-n-element? {:m {:a [1 2 3]} :n 4 :from :b})))))
 
-(deftest test-valid-from-to-piles?
-  (testing "Test if is from valid piles"
-    (is (true? (valid-from-to-piles? {:from :waste :to :tableau-3-face-up})))
-    (is (true? (valid-from-to-piles? {:from :tableau-3-face-up :to :foundation-2})))
-    (is (false? (valid-from-to-piles? {:from :foundation-2 :to :stock})))
-    (is (false? (valid-from-to-piles? {:from :stock})))
-    (is (false? (valid-from-to-piles? {:from :tableau-2-face-down :to :tableau-2-face-up})))))
-
-(deftest test-from-to-are-different?
-  (testing "Test if is to valid piles"
-    (is (true? (from-to-are-different? {:from :a :to :b})))
-    (is (false? (from-to-are-different? {:from :a :to :a })))))
-
 (deftest test-can-stack-two-cards?
   (testing "Test if two cards can be stacked together"
     (is (true? (can-stack-two-cards? {:top-card {:suit :spade :number 1} :bottom-card {:suit :diamond :number 2}})))
     (is (true? (can-stack-two-cards? {:top-card {:suit :heart :number 4} :bottom-card {:suit :club :number 5}})))
     (is (false? (can-stack-two-cards? {:top-card {:suit :diamond :number 4} :bottom-card {:suit :spade :number 6}})))
            ))
+
+(deftest test-is-to-foundation?
+  (testing "Test if is to foundation"
+    (is (true? (is-to-foundation? {:m nil :n nil :from nil :to :foundation-2})))))
+
 
 (deftest test-can-stack-two-piles?
   (testing "Test if two piles can be stacked together"
