@@ -39,35 +39,41 @@
         bottom-card (last bottom-pile)]
     (can-stack-two-cards? {:top-card top-card :bottom-card bottom-card})))
 
-(defn from-waste-to-tableau? [{:keys [m n from to]}]
+(defn valid-from-waste-to-tableau? [{:keys [m n from to]}]
+  (let [waste-pile (get m from)
+        tableau-pile (get m to)]
+    true
+  ))
+
+(defn valid-from-waste-to-foundation? [{:keys [m n from to]}]
   true
   )
 
-(defn from-waste-to-foundation? [{:keys [m n from to]}]
+(defn valid-from-tableau-to-foundation? [{:keys [m n from to]}]
   true
   )
 
-(defn from-tableau-to-foundation? [{:keys [m n from to]}]
+(defn valid-from-foundation-to-tableau? [{:keys [m n from to]}]
   true
   )
 
-(defn from-foundation-to-tableau? [{:keys [m n from to]}]
-  true
-  )
-
-(defn from-tableau-to-tableau? [{:keys [m n from to]}]
+(defn valid-from-tableau-to-tableau? [{:keys [m n from to]}]
   true
   )
 
 (defn comply-with-policies? [{:keys [m n from to] :as all}]
+  (let [from-waste?      (contains? #{:waste} from)
+        from-tableau?    (contains? tableau-face-up-piles from)
+        from-foundation? (contains? foundation-piles from)
+        to-tableau?      (contains? tableau-face-up-piles to)
+        to-foundation?   (contains? foundation-piles to)]
   (cond
-    (and (contains? #{:waste} from) (contains? tableau-face-up-piles to)) (from-waste-to-tableau? all)
-    (and (contains? #{:waste} from) (contains? foundation-piles to)) (from-waste-to-foundation? all)
-    (and (contains? tableau-face-up-piles from) (contains? foundation-piles to)) (from-tableau-to-foundation? all)
-    (and (contains? foundation-piles from) (contains? tableau-face-up-piles to)) (from-foundation-to-tableau? all)
-    (and (contains? tableau-face-up-piles from) (contains? tableau-face-up-piles to)) (from-tableau-to-tableau? all)
-    :else false
-  ))
+    (and from-waste? to-tableau?)      (valid-from-waste-to-tableau? all)
+    (and from-waste? to-foundation?)   (valid-from-waste-to-foundation? all)
+    (and from-tableau? to-foundation?) (valid-from-tableau-to-foundation? all)
+    (and from-foundation? to-tableau?) (valid-from-foundation-to-tableau? all)
+    (and from-tableau? to-tableau?)    (valid-from-tableau-to-tableau? all)
+    :else false)))
 
 (def can-move? 
   "input: {:m game :n num-cards :from from-key :to to-key}"
