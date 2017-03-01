@@ -37,8 +37,8 @@
     (contains? possible-top-card-suit (:suit top-card)))))
 
 (defn can-stack-two-piles? [{:keys [m n from to]}]
-  (let [top-pile (get m from)
-        top-card (get top-pile (- (count top-pile) n))
+  (let [top-pile    (get m from)
+        top-card    (get top-pile (- (count top-pile) n))
         bottom-pile (get m to)
         bottom-card (last bottom-pile)]
     (can-stack-two-cards? {:top-card top-card :bottom-card bottom-card})))
