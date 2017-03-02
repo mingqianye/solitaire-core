@@ -65,7 +65,7 @@
         moving-pile (take-last n from-tableau)
         to-tableau (get m to)]
     (if (empty? to-tableau)
-      (= 13 (first moving-pile))
+      (= 13 (:rank (first moving-pile)))
       (can-stack-piles-in-tableau? {:top-pile moving-pile :bottom-pile to-tableau}))))
 
 (defn comply-with-policies? [{:keys [m n from to] :as all}]

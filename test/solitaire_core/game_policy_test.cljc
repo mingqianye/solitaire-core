@@ -49,6 +49,26 @@
                                               :to :tableau-1-face-up})))
            ))
 
+(deftest test-valid-from-tableau-to-tableau?
+  (testing "Test if is a valid move from waste to tableau"
+    (is (true? (valid-from-tableau-to-tableau? {:m {:tableau-2-face-up [{:suit :spade :rank 1}] 
+                                                    :tableau-1-face-up [{:suit :heart :rank 2}]}
+                                              :n 1
+                                              :from :tableau-2-face-up
+                                              :to :tableau-1-face-up})))
+
+    (is (true? (valid-from-tableau-to-tableau? {:m {:tableau-2-face-up [] 
+                                                    :tableau-1-face-up [{:suit :heart :rank 13}]}
+                                              :n 1
+                                              :from :tableau-1-face-up
+                                              :to :tableau-2-face-up})))
+           
+    (is (false? (valid-from-tableau-to-tableau? {:m {:tableau-3-face-up [{:suit :spade :rank 1}] 
+                                                  :tableau-1-face-up [{:suit :heart :rank 1}]}
+                                              :n 1
+                                              :from :waste
+                                              :to :tableau-1-face-up})))))
+
 (deftest test-valid-to-foundation?
   (testing "Test if is a valid move from waste to tableau"
     (is (true? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 1}] 
