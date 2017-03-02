@@ -21,8 +21,12 @@
 (defn is-to-foundation? [{:keys [to]}]
   (contains? foundation-piles to))
 
+(defn can-stack-in-foundation? [{:keys [top-card bottom-card]}]
+  (and 
+    (= (:suit top-card) (:suit bottom-card))
+    (= (+ 1 (:number bottom-card)) (:number top-card))))
 
-(defn can-stack-two-cards? [{:keys [top-card bottom-card]}]
+(defn can-stack-in-tableau? [{:keys [top-card bottom-card]}]
   (let [stack-rule {:spade   #{:diamond :heart}
                     :club    #{:diamond :heart}
                     :diamond #{:spade :club}
@@ -37,17 +41,27 @@
         top-card    (get top-pile (- (count top-pile) n))
         bottom-pile (get m to)
         bottom-card (last bottom-pile)]
-    (can-stack-two-cards? {:top-card top-card :bottom-card bottom-card})))
+    (can-stack-in-tableau? {:top-card top-card :bottom-card bottom-card})))
 
 (defn valid-from-waste-to-tableau? [{:keys [m n from to]}]
-  (let [waste-pile (get m from)
-        tableau-pile (get m to)]
-    true
-  ))
+  (let [waste-pile   (get m from)
+        tableau-pile (get m to)
+        n=1?         #(= n 1)
+        can-stack-on-tableau-pile? #(can-stack-in-tableau? {:top-card (last waste-pile)
+                                                            :bottom-card (last tableau-pile)})]
+    (and (n=1?) (can-stack-on-tableau-pile?))))
 
 (defn valid-from-waste-to-foundation? [{:keys [m n from to]}]
-  true
-  )
+  (let [waste-pile (get m from)
+        foundation-pile (get m to)
+        n=1?       #(= n 1)
+        empty-foundation? #(empty? foundation-pile)
+        can-stack-on-foundation-pile? #(can-stack-in-foundation? {:top-card (last waste-pile)
+                                                                  :bottom-card (last foundation-pile)})]
+    (and (n=1?) 
+         (or 
+           (empty-foundation?) 
+           (can-stack-on-foundation-pile?)))))
 
 (defn valid-from-tableau-to-foundation? [{:keys [m n from to]}]
   true

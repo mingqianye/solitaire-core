@@ -12,17 +12,72 @@
     (is (true? (from-has-at-least-n-element? {:m {:a [1 2 3]} :n 2 :from :a })))
     (is (false? (from-has-at-least-n-element? {:m {:a [1 2 3]} :n 4 :from :b})))))
 
-(deftest test-can-stack-two-cards?
+(deftest test-can-stack-in-foundation?
   (testing "Test if two cards can be stacked together"
-    (is (true? (can-stack-two-cards? {:top-card {:suit :spade :number 1} :bottom-card {:suit :diamond :number 2}})))
-    (is (true? (can-stack-two-cards? {:top-card {:suit :heart :number 4} :bottom-card {:suit :club :number 5}})))
-    (is (false? (can-stack-two-cards? {:top-card {:suit :diamond :number 4} :bottom-card {:suit :spade :number 6}})))
+    (is (true? (can-stack-in-foundation? {:top-card {:suit :spade :number 2} :bottom-card {:suit :spade :number 1}})))
+    (is (true? (can-stack-in-foundation? {:top-card {:suit :heart :number 4} :bottom-card {:suit :heart :number 3}})))
+    (is (false? (can-stack-in-foundation? {:top-card {:suit :diamond :number 4} :bottom-card {:suit :diamond :number 6}})))
+    (is (false? (can-stack-in-foundation? {:top-card {:suit :heart :number 4} :bottom-card {:suit :diamond :number 3}})))
+           ))
+
+(deftest test-can-stack-in-tableau?
+  (testing "Test if two cards can be stacked together"
+    (is (true? (can-stack-in-tableau? {:top-card {:suit :spade :number 1} :bottom-card {:suit :diamond :number 2}})))
+    (is (true? (can-stack-in-tableau? {:top-card {:suit :heart :number 4} :bottom-card {:suit :club :number 5}})))
+    (is (false? (can-stack-in-tableau? {:top-card {:suit :diamond :number 4} :bottom-card {:suit :spade :number 6}})))
            ))
 
 (deftest test-is-to-foundation?
   (testing "Test if is to foundation"
     (is (true? (is-to-foundation? {:m nil :n nil :from nil :to :foundation-2})))))
 
+(deftest test-valid-from-waste-to-tableau?
+  (testing "Test if is a valid move from waste to tableau"
+    (is (true? (valid-from-waste-to-tableau? {:m {:waste [{:suit :spade :number 1}] 
+                                                  :tableau-1-face-up [{:suit :heart :number 2}]}
+                                              :n 1
+                                              :from :waste
+                                              :to :tableau-1-face-up})))
+           
+    (is (false? (valid-from-waste-to-tableau? {:m {:waste [{:suit :spade :number 1}] 
+                                                  :tableau-1-face-up [{:suit :heart :number 1}]}
+                                              :n 1
+                                              :from :waste
+                                              :to :tableau-1-face-up})))
+           ))
+
+(deftest test-valid-from-waste-to-foundation?
+  (testing "Test if is a valid move from waste to tableau"
+    (is (true? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :number 1}] 
+                                                     :foundation-2 []}
+                                                 :n 1
+                                                 :from :waste
+                                                 :to :foundation-2})))
+           
+    (is (true? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :number 2}] 
+                                                     :foundation-2 [{:suit :spade :number 1}]}
+                                                 :n 1
+                                                 :from :waste
+                                                 :to :foundation-2})))
+
+    (is (false? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :number 2} {:suit :heart :number 3}] 
+                                                     :foundation-2 [{:suit :spade :number 1}]}
+                                                 :n 2
+                                                 :from :waste
+                                                 :to :foundation-2})))
+
+    (is (false? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :number 2}] 
+                                                     :foundation-2 [{:suit :heart :number 1}]}
+                                                 :n 1
+                                                 :from :waste
+                                                 :to :foundation-2})))
+           
+    (is (false? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :number 3}] 
+                                                      :tableau-1-face-up [{:suit :heart :number 3}]}
+                                                  :n 1
+                                                  :from :waste
+                                                  :to :tableau-1-face-up})))
+           ))
 
 (deftest test-can-stack-two-piles?
   (testing "Test if two piles can be stacked together"
