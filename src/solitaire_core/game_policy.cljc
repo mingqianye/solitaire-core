@@ -24,7 +24,7 @@
 (defn can-stack-in-foundation? [{:keys [top-card bottom-card]}]
   (and 
     (= (:suit top-card) (:suit bottom-card))
-    (= (+ 1 (:number bottom-card)) (:number top-card))))
+    (= (+ 1 (:rank bottom-card)) (:rank top-card))))
 
 (defn can-stack-in-tableau? [{:keys [top-card bottom-card]}]
   (let [stack-rule {:spade   #{:diamond :heart}
@@ -33,7 +33,7 @@
                     :heart   #{:spade :club}   }
         possible-top-card-suit ((:suit bottom-card) stack-rule)]
   (and
-    (= (:number top-card) (dec (:number bottom-card)))
+    (= (:rank top-card) (dec (:rank bottom-card)))
     (contains? possible-top-card-suit (:suit top-card)))))
 
 (defn can-stack-two-piles? [{:keys [m n from to]}]
