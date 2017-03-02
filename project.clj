@@ -1,4 +1,4 @@
-(defproject solitaire-core "0.1.0-SNAPSHOT"
+(defproject solitaire-core "0.1.0"
   :description "Logic for the classic solitaire game"
   :url "https://github.com/mingqianye/solitaire-core"
   :license {:name "Eclipse Public License"
