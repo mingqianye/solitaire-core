@@ -27,6 +27,13 @@
     (is (false? (can-stack-in-tableau? {:top-card {:suit :diamond :rank 4} :bottom-card {:suit :spade :rank 6}})))
            ))
 
+(deftest test-can-stack-piles-in-tableau?
+  (testing "Test if two cards can be stacked together"
+    (is (true? (can-stack-piles-in-tableau? {:top-pile [{:suit :spade :rank 1}] :bottom-pile [{:suit :diamond :rank 2}]})))
+    (is (true? (can-stack-piles-in-tableau? {:top-pile [{:suit :heart :rank 4}] :bottom-pile [{:suit :club :rank 5}]})))
+    (is (false? (can-stack-piles-in-tableau? {:top-pile [{:suit :diamond :rank 4}] :bottom-pile [{:suit :spade :rank 6}]})))
+           ))
+
 (deftest test-valid-single-to-tableau?
   (testing "Test if is a valid move from waste to tableau"
     (is (true? (valid-single-to-tableau? {:m {:waste [{:suit :spade :rank 1}] 
@@ -74,16 +81,6 @@
                                                   :from :waste
                                                   :to :tableau-1-face-up})))
            ))
-
-(deftest test-can-stack-two-piles?
-  (testing "Test if two piles can be stacked together"
-    (let [pile-1 [{:suit :spade :rank 7} {:suit :diamond :rank 6}]
-          pile-2 [{:suit :spade :rank 9} {:suit :heart :rank 8}]
-          pile-3 [{:suit :spade :rank 8} {:suit :heart :rank 7}]]
-    
-    (is (true? (can-stack-two-piles? {:m {:a pile-1 :b pile-2} :n 2 :from :a :to :b})))
-    (is (false? (can-stack-two-piles? {:m {:a pile-1 :b pile-2}  :n 1 :from :a :to :b})))
-    (is (false? (can-stack-two-piles? {:m {:a pile-1 :b pile-3} :n 1 :from :a :to :b}))))))
 
 (deftest test-can-move?
   (testing "rank elements in from-path"
