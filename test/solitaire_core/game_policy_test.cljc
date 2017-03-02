@@ -27,52 +27,48 @@
     (is (false? (can-stack-in-tableau? {:top-card {:suit :diamond :rank 4} :bottom-card {:suit :spade :rank 6}})))
            ))
 
-(deftest test-is-to-foundation?
-  (testing "Test if is to foundation"
-    (is (true? (is-to-foundation? {:m nil :n nil :from nil :to :foundation-2})))))
-
-(deftest test-valid-from-waste-to-tableau?
+(deftest test-valid-single-to-tableau?
   (testing "Test if is a valid move from waste to tableau"
-    (is (true? (valid-from-waste-to-tableau? {:m {:waste [{:suit :spade :rank 1}] 
+    (is (true? (valid-single-to-tableau? {:m {:waste [{:suit :spade :rank 1}] 
                                                   :tableau-1-face-up [{:suit :heart :rank 2}]}
                                               :n 1
                                               :from :waste
                                               :to :tableau-1-face-up})))
            
-    (is (false? (valid-from-waste-to-tableau? {:m {:waste [{:suit :spade :rank 1}] 
+    (is (false? (valid-single-to-tableau? {:m {:waste [{:suit :spade :rank 1}] 
                                                   :tableau-1-face-up [{:suit :heart :rank 1}]}
                                               :n 1
                                               :from :waste
                                               :to :tableau-1-face-up})))
            ))
 
-(deftest test-valid-from-waste-to-foundation?
+(deftest test-valid-to-foundation?
   (testing "Test if is a valid move from waste to tableau"
-    (is (true? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :rank 1}] 
+    (is (true? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 1}] 
                                                      :foundation-2 []}
                                                  :n 1
                                                  :from :waste
                                                  :to :foundation-2})))
            
-    (is (true? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :rank 2}] 
+    (is (true? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 2}] 
                                                      :foundation-2 [{:suit :spade :rank 1}]}
                                                  :n 1
                                                  :from :waste
                                                  :to :foundation-2})))
 
-    (is (false? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :rank 2} {:suit :heart :rank 3}] 
+    (is (false? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 2} {:suit :heart :rank 3}] 
                                                      :foundation-2 [{:suit :spade :rank 1}]}
                                                  :n 2
                                                  :from :waste
                                                  :to :foundation-2})))
 
-    (is (false? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :rank 2}] 
+    (is (false? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 2}] 
                                                      :foundation-2 [{:suit :heart :rank 1}]}
                                                  :n 1
                                                  :from :waste
                                                  :to :foundation-2})))
            
-    (is (false? (valid-from-waste-to-foundation? {:m {:waste [{:suit :spade :rank 3}] 
+    (is (false? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 3}] 
                                                       :tableau-1-face-up [{:suit :heart :rank 3}]}
                                                   :n 1
                                                   :from :waste

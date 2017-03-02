@@ -18,9 +18,6 @@
 (defn from-has-at-least-n-element? [{:keys [m n from]}]
   (>= (count (get m from)) n))
 
-(defn is-to-foundation? [{:keys [to]}]
-  (contains? foundation-piles to))
-
 (defn can-stack-in-foundation? [{:keys [top-card bottom-card]}]
   (and 
     (= (:suit top-card) (:suit bottom-card))
@@ -43,29 +40,25 @@
         bottom-card (last bottom-pile)]
     (can-stack-in-tableau? {:top-card top-card :bottom-card bottom-card})))
 
-(defn valid-from-waste-to-tableau? [{:keys [m n from to]}]
-  (let [waste-pile   (get m from)
+(defn valid-single-to-tableau? [{:keys [m n from to]}]
+  (let [source-pile   (get m from)
         tableau-pile (get m to)
         n=1?         #(= n 1)
-        can-stack-on-tableau-pile? #(can-stack-in-tableau? {:top-card (last waste-pile)
+        can-stack-on-tableau-pile? #(can-stack-in-tableau? {:top-card (last source-pile)
                                                             :bottom-card (last tableau-pile)})]
     (and (n=1?) (can-stack-on-tableau-pile?))))
 
-(defn valid-from-waste-to-foundation? [{:keys [m n from to]}]
-  (let [waste-pile (get m from)
+(defn valid-to-foundation? [{:keys [m n from to]}]
+  (let [source-pile (get m from)
         foundation-pile (get m to)
         n=1?       #(= n 1)
         empty-foundation? #(empty? foundation-pile)
-        can-stack-on-foundation-pile? #(can-stack-in-foundation? {:top-card (last waste-pile)
+        can-stack-on-foundation-pile? #(can-stack-in-foundation? {:top-card (last source-pile)
                                                                   :bottom-card (last foundation-pile)})]
     (and (n=1?) 
          (or 
            (empty-foundation?) 
            (can-stack-on-foundation-pile?)))))
-
-(defn valid-from-tableau-to-foundation? [{:keys [m n from to]}]
-  true
-  )
 
 (defn valid-from-foundation-to-tableau? [{:keys [m n from to]}]
   true
@@ -82,10 +75,10 @@
         to-tableau?      (contains? tableau-face-up-piles to)
         to-foundation?   (contains? foundation-piles to)]
   (cond
-    (and from-waste? to-tableau?)      (valid-from-waste-to-tableau? all)
-    (and from-waste? to-foundation?)   (valid-from-waste-to-foundation? all)
-    (and from-tableau? to-foundation?) (valid-from-tableau-to-foundation? all)
-    (and from-foundation? to-tableau?) (valid-from-foundation-to-tableau? all)
+    (and from-waste? to-tableau?)      (valid-single-to-tableau? all)
+    (and from-foundation? to-tableau?) (valid-single-to-tableau? all)
+    (and from-waste? to-foundation?)   (valid-to-foundation? all)
+    (and from-tableau? to-foundation?) (valid-to-foundation? all)
     (and from-tableau? to-tableau?)    (valid-from-tableau-to-tableau? all)
     :else false)))
 
