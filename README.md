@@ -19,6 +19,11 @@ lein test
 
 Add `{:user {:plugins [[com.jakemccrary/lein-test-refresh "0.18.1"]]}}` to `~/.lein/profiles.clj`
 
+## Deploy to Clojars
+
+1. Bump version in project.clj
+2. `lein deploy`
+
 ## License
 
 Copyright © 2017 FIXME
