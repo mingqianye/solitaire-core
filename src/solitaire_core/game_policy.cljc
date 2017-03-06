@@ -6,7 +6,7 @@
 
 (def tableau-face-up-piles
   #{:tableau-1-face-up :tableau-2-face-up :tableau-3-face-up :tableau-4-face-up
-    :tableau-5-face-up :tableau-6-face-up :tableau-7-face-u})
+    :tableau-5-face-up :tableau-6-face-up :tableau-7-face-up})
 
 (defn won? [game]
   (-> game
