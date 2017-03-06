@@ -116,3 +116,20 @@
                               :from :tableau-2-face-up 
                               :to :tableau-1-face-up}))) 
            )))
+
+(deftest test-cards-in-desc-order?
+  (testing "can detect if a list of cards is in desc order or not"
+    (is (true? (cards-in-desc-order? {:cards [{:rank 4} {:rank 3}]})))
+    (is (true? (cards-in-desc-order? {:cards [{:rank 4} {:rank 3} {:rank 2}]})))
+    (is (true? (cards-in-desc-order? {:cards [{:rank 4}]})))
+    (is (false? (cards-in-desc-order? {:cards [{:rank 4} {:rank 2}]})))))
+
+(deftest test-can-be-selected?
+  (testing "can be selected?"
+    (is (true? (can-be-selected? {:m {:waste [22 33 44 55]} :n 3 :from :waste})))
+    (is (false? (can-be-selected? {:m {:waste [22 33 44 55]} :n 2 :from :waste})))
+    (is (true? (can-be-selected? {:m {:tableau-2-face-up [{:rank 8} {:rank 7}]} :n 1 :from :tableau-2-face-up})))
+    (is (true? (can-be-selected? {:m {:tableau-2-face-up [{:rank 8} {:rank 7}]} :n 0 :from :tableau-2-face-up})))
+    (is (true? (can-be-selected? {:m {:tableau-2-face-up [{:rank 10} {:rank 8} {:rank 7}]} :n 1 :from :tableau-2-face-up})))
+    (is (false? (can-be-selected? {:m {:tableau-2-face-up [{:rank 10} {:rank 8} {:rank 7}]} :n 0 :from :tableau-2-face-up})))
+           ))

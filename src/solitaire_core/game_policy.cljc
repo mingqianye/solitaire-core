@@ -82,8 +82,30 @@
     (and from-tableau? to-tableau?)    (valid-from-tableau-to-tableau? all)
     :else false)))
 
+
+(defn cards-in-desc-order? [{:keys [cards]}]
+  (let [ranks (map :rank cards)
+        descending-seq (reverse (range (last ranks) (inc (first ranks)))) ]
+
+    (and 
+      (= ranks descending-seq)
+      (= (count ranks) (count descending-seq)))))
+
+
+(defn can-be-selected? [{:keys [m n from]}]
+  (let [from-waste?      (contains? #{:waste} from)
+        from-tableau?    (contains? tableau-face-up-piles from)
+        from-foundation? (contains? foundation-piles from)
+        all-cards        (from m)
+        is-last-card?    (= n (- (count all-cards) 1))
+        last-k-cards     (fn [] (take-last (- (count all-cards) n) all-cards))]
+    (cond
+      from-waste? is-last-card?
+      from-foundation? is-last-card?
+      from-tableau? (cards-in-desc-order? {:cards (last-k-cards)})
+      :else false)))
+
 (def can-move? 
   "input: {:m game :n num-cards :from from-key :to to-key}"
   (every-pred from-has-at-least-n-element?
               comply-with-policies?))
-
