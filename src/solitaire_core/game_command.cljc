@@ -14,11 +14,12 @@
        copy-from-waste-to-stock
      )))
 
-(defn move [{:keys [m n from to]}]
-  "input: {:m game :n num-cards :from from-key :to to-key}"
+(defn move [{:keys [m i from to]}]
+  "input: {:m game :i index-in-pile :from from-key :to to-key}"
   (let [
-        new_from (drop-last n (get m from))
-        new_to   (concat (get m to) (take-last n (get m from)))
+        cut-len  (- (count (get m from)) i)
+        new_from (take i (get m from))
+        new_to   (concat (get m to) (take-last cut-len (get m from)))
         ]
     (-> m
       (assoc-in [from] new_from)

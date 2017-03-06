@@ -15,8 +15,8 @@
     count
     (= 52)))
 
-(defn from-has-at-least-n-element? [{:keys [m n from]}]
-  (>= (count (get m from)) n))
+(defn from-has-at-least-i+1-elements? [{:keys [m i from]}]
+  (>= (count (get m from)) (inc i)))
 
 (defn can-stack-in-foundation? [{:keys [top-card bottom-card]}]
   (and 
@@ -39,36 +39,36 @@
     (can-stack-in-tableau? {:top-card (first top-pile) 
                             :bottom-card (last bottom-pile)})))
 
-(defn valid-single-to-tableau? [{:keys [m n from to]}]
+(defn valid-single-to-tableau? [{:keys [m i from to]}]
   (let [source-pile   (get m from)
         tableau-pile (get m to)
-        n=1?         #(= n 1)
+        i=0?         #(= i 0)
         can-stack-on-tableau-pile? #(can-stack-in-tableau? {:top-card (last source-pile)
                                                             :bottom-card (last tableau-pile)})]
-    (and (n=1?) (can-stack-on-tableau-pile?))))
+    (and (i=0?) (can-stack-on-tableau-pile?))))
 
 
-(defn valid-to-foundation? [{:keys [m n from to]}]
+(defn valid-to-foundation? [{:keys [m i from to]}]
   (let [source-pile (get m from)
         foundation-pile (get m to)
-        n=1?       #(= n 1)
+        i=0?       #(= i 0)
         empty-foundation? #(empty? foundation-pile)
         can-stack-on-foundation-pile? #(can-stack-in-foundation? {:top-card (last source-pile)
                                                                   :bottom-card (last foundation-pile)})]
-    (and (n=1?) 
+    (and (i=0?) 
          (or 
            (empty-foundation?) 
            (can-stack-on-foundation-pile?)))))
 
-(defn valid-from-tableau-to-tableau? [{:keys [m n from to]}]
+(defn valid-from-tableau-to-tableau? [{:keys [m i from to]}]
   (let [from-tableau (get m from)
-        moving-pile (take-last n from-tableau)
+        moving-pile (take-last (- (count from-tableau) i) from-tableau)
         to-tableau (get m to)]
     (if (empty? to-tableau)
       (= 13 (:rank (first moving-pile)))
       (can-stack-piles-in-tableau? {:top-pile moving-pile :bottom-pile to-tableau}))))
 
-(defn comply-with-policies? [{:keys [m n from to] :as all}]
+(defn comply-with-policies? [{:keys [m i from to] :as all}]
   (let [from-waste?      (contains? #{:waste} from)
         from-tableau?    (contains? tableau-face-up-piles from)
         from-foundation? (contains? foundation-piles from)
@@ -92,13 +92,13 @@
       (= (count ranks) (count descending-seq)))))
 
 
-(defn can-be-selected? [{:keys [m n from]}]
+(defn can-be-selected? [{:keys [m i from]}]
   (let [from-waste?      (contains? #{:waste} from)
         from-tableau?    (contains? tableau-face-up-piles from)
         from-foundation? (contains? foundation-piles from)
         all-cards        (from m)
-        is-last-card?    (= n (- (count all-cards) 1))
-        last-k-cards     (fn [] (take-last (- (count all-cards) n) all-cards))]
+        is-last-card?    (= i (- (count all-cards) 1))
+        last-k-cards     (fn [] (take-last (- (count all-cards) i) all-cards))]
     (cond
       from-waste? is-last-card?
       from-foundation? is-last-card?
@@ -106,6 +106,6 @@
       :else false)))
 
 (def can-move? 
-  "input: {:m game :n num-cards :from from-key :to to-key}"
-  (every-pred from-has-at-least-n-element?
+  "input: {:m game :i index-in-pile :from from-key :to to-key}"
+  (every-pred from-has-at-least-i+1-elements?
               comply-with-policies?))
