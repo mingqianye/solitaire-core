@@ -138,3 +138,15 @@
     (is (true? (can-be-selected? {:m {:tableau-2-face-up [{:rank 10} {:rank 8} {:rank 7}]} :i 1 :from :tableau-2-face-up})))
     (is (false? (can-be-selected? {:m {:tableau-2-face-up [{:rank 10} {:rank 8} {:rank 7}]} :i 0 :from :tableau-2-face-up})))
            ))
+
+(deftest test-is-stable?
+  (testing "can detect if tableau piles are stable or not"
+    (is (false? (is-stable? {:tableau-3-face-up [] :tableau-3-face-down ["blah"]})))
+    (is (true? (is-stable? {:tableau-1-face-up ["bli"] :tableau-1-face-down ["blah"]
+                            :tableau-2-face-up ["bli"] :tableau-2-face-down ["blah"]
+                            :tableau-3-face-up ["bli"] :tableau-3-face-down ["blah"]
+                            :tableau-4-face-up ["bli"] :tableau-4-face-down ["blah"]
+                            :tableau-5-face-up ["bli"] :tableau-5-face-down ["blah"]
+                            :tableau-6-face-up ["bli"] :tableau-6-face-down ["blah"]
+                            :tableau-7-face-up ["bli"] :tableau-7-face-down ["blah"]})))
+           ))

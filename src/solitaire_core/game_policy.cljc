@@ -15,6 +15,18 @@
     count
     (= 52)))
 
+(defn is-stable? [game]
+  (let [pile-empty?     (fn [pile-name] (empty? (pile-name game)))
+        pile-not-empty? (complement pile-empty?)]
+    (and
+      (or (pile-not-empty? :tableau-1-face-up) (pile-empty? :tableau-1-face-down))
+      (or (pile-not-empty? :tableau-2-face-up) (pile-empty? :tableau-2-face-down))
+      (or (pile-not-empty? :tableau-3-face-up) (pile-empty? :tableau-3-face-down))
+      (or (pile-not-empty? :tableau-4-face-up) (pile-empty? :tableau-4-face-down))
+      (or (pile-not-empty? :tableau-5-face-up) (pile-empty? :tableau-5-face-down))
+      (or (pile-not-empty? :tableau-6-face-up) (pile-empty? :tableau-6-face-down))
+      (or (pile-not-empty? :tableau-7-face-up) (pile-empty? :tableau-7-face-down)))))
+
 (defn from-has-at-least-i+1-elements? [{:keys [m i from]}]
   (>= (count (get m from)) (inc i)))
 
@@ -109,3 +121,5 @@
   "input: {:m game :i index-in-pile :from from-key :to to-key}"
   (every-pred from-has-at-least-i+1-elements?
               comply-with-policies?))
+
+  
