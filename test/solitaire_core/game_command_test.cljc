@@ -30,3 +30,27 @@
   (testing "Test if can move ith object from [from-path] to [to-path]"
     (let [random-map {:a [12 33 44 23 49] :c [5 6 7 8]}]
       (is (= {:a [12 33] :c [5 6 7 8 44 23 49]} (move {:m random-map :i 2 :from :a :to :c}))))))
+
+(deftest test-stablize-one
+  (testing "Test if can stablize one tableau column"
+    (is (= {:a [3] :b [1 2]} (stablize-one {:a [] :b [1 2 3]} :a :b)))
+    (is (= {:a [1] :b [1 2 3]} (stablize-one {:a [1] :b [1 2 3]} :a :b)))
+    (is (= {:a [] :b []} (stablize-one {:a [] :b []} :a :b)))
+      ))
+
+(deftest test-stablize
+  (testing "Test if can stablize one tableau column"
+    (let [game {:tableau-1-face-up [] :tableau-1-face-down [1 2 3]
+                :tableau-2-face-up [1] :tableau-2-face-down [1 2 3]
+                :tableau-3-face-up [] :tableau-3-face-down []
+                :tableau-4-face-up [4 4] :tableau-4-face-down [1 2 3]
+                :tableau-5-face-up [] :tableau-5-face-down [1]
+                :tableau-6-face-up [2] :tableau-6-face-down []
+                :tableau-7-face-up [33] :tableau-7-face-down [1 2 3]}]
+    (is (= (stablize game) {:tableau-1-face-up [3] :tableau-1-face-down [1 2]
+                            :tableau-2-face-up [1] :tableau-2-face-down [1 2 3]
+                            :tableau-3-face-up [] :tableau-3-face-down []
+                            :tableau-4-face-up [4 4] :tableau-4-face-down [1 2 3]
+                            :tableau-5-face-up [1] :tableau-5-face-down []
+                            :tableau-6-face-up [2] :tableau-6-face-down []
+                            :tableau-7-face-up [33] :tableau-7-face-down [1 2 3]})))))

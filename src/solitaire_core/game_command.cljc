@@ -24,3 +24,23 @@
     (-> m
       (assoc-in [from] new_from)
       (assoc-in [to] new_to))))
+
+(defn stablize-one [game up-pile-name down-pile-name]
+  (let [up-pile   (up-pile-name game)
+        down-pile (down-pile-name game)]
+    (if (and (empty? up-pile) (not (empty? down-pile)))
+      (-> game
+        (assoc-in [up-pile-name] (take-last 1 down-pile))
+        (assoc-in [down-pile-name] (drop-last 1 down-pile)))
+      game)))
+      
+
+(defn stablize [game]
+  (-> game
+    (stablize-one :tableau-1-face-up :tableau-1-face-down)
+    (stablize-one :tableau-2-face-up :tableau-2-face-down)
+    (stablize-one :tableau-3-face-up :tableau-3-face-down)
+    (stablize-one :tableau-4-face-up :tableau-4-face-down)
+    (stablize-one :tableau-5-face-up :tableau-5-face-down)
+    (stablize-one :tableau-6-face-up :tableau-6-face-down)
+    (stablize-one :tableau-7-face-up :tableau-7-face-down)))
