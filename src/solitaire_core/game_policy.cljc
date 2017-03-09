@@ -72,9 +72,9 @@
            (empty-foundation?) 
            (can-stack-on-foundation-pile?)))))
 
-(defn valid-from-tableau-to-tableau? [{:keys [m i from to]}]
-  (let [from-tableau (get m from)
-        moving-pile (take-last (- (count from-tableau) i) from-tableau)
+(defn valid-to-tableau? [{:keys [m i from to]}]
+  (let [from-pile (get m from)
+        moving-pile (take-last (- (count from-pile) i) from-pile)
         to-tableau (get m to)]
     (if (empty? to-tableau)
       (= 13 (:rank (first moving-pile)))
@@ -87,11 +87,11 @@
         to-tableau?      (contains? tableau-face-up-piles to)
         to-foundation?   (contains? foundation-piles to)]
   (cond
-    (and from-waste? to-tableau?)      (valid-single-to-tableau? all)
-    (and from-foundation? to-tableau?) (valid-single-to-tableau? all)
+    (and from-waste? to-tableau?)      (valid-to-tableau? all)
+    (and from-foundation? to-tableau?) (valid-to-tableau? all)
     (and from-waste? to-foundation?)   (valid-to-foundation? all)
     (and from-tableau? to-foundation?) (valid-to-foundation? all)
-    (and from-tableau? to-tableau?)    (valid-from-tableau-to-tableau? all)
+    (and from-tableau? to-tableau?)    (valid-to-tableau? all)
     :else false)))
 
 

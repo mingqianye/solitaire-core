@@ -35,36 +35,21 @@
     (is (false? (can-stack-piles-in-tableau? {:top-pile [{:suit :diamond :rank 4}] :bottom-pile [{:suit :spade :rank 6}]})))
            ))
 
-(deftest test-valid-single-to-tableau?
+(deftest test-valid-to-tableau?
   (testing "Test if is a valid move from waste to tableau"
-    (is (true? (valid-single-to-tableau? {:m {:waste [{:suit :spade :rank 1}] 
-                                                  :tableau-1-face-up [{:suit :heart :rank 2}]}
-                                              :i 0
-                                              :from :waste
-                                              :to :tableau-1-face-up})))
-           
-    (is (false? (valid-single-to-tableau? {:m {:waste [{:suit :spade :rank 1}] 
-                                                  :tableau-1-face-up [{:suit :heart :rank 1}]}
-                                              :i 0
-                                              :from :waste
-                                              :to :tableau-1-face-up})))
-           ))
-
-(deftest test-valid-from-tableau-to-tableau?
-  (testing "Test if is a valid move from waste to tableau"
-    (is (true? (valid-from-tableau-to-tableau? {:m {:tableau-2-face-up [{:suit :spade :rank 1}] 
+    (is (true? (valid-to-tableau? {:m {:tableau-2-face-up [{:suit :spade :rank 1}] 
                                                     :tableau-1-face-up [{:suit :heart :rank 2}]}
                                               :i 0
                                               :from :tableau-2-face-up
                                               :to :tableau-1-face-up})))
 
-    (is (true? (valid-from-tableau-to-tableau? {:m {:tableau-2-face-up [] 
+    (is (true? (valid-to-tableau? {:m {:tableau-2-face-up [] 
                                                     :tableau-1-face-up [{:suit :heart :rank 13}]}
                                               :i 0
                                               :from :tableau-1-face-up
                                               :to :tableau-2-face-up})))
            
-    (is (false? (valid-from-tableau-to-tableau? {:m {:tableau-3-face-up [{:suit :spade :rank 1}] 
+    (is (false? (valid-to-tableau? {:m {:tableau-3-face-up [{:suit :spade :rank 1}] 
                                                   :tableau-1-face-up [{:suit :heart :rank 1}]}
                                               :i 0
                                               :from :waste
