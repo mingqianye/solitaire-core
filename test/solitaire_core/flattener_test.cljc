@@ -1,6 +1,6 @@
-(ns solitaire-core.ui-mapper-test
+(ns solitaire-core.flattener-test
   (:require [clojure.test :refer :all]
-            [solitaire-core.ui-mapper :refer :all]))
+            [solitaire-core.flattener :refer :all]))
 
 (deftest test-card-to-list-item
   (testing "test if a card can be converted to a list item"
@@ -21,11 +21,17 @@
                 :tableau-1-face-up [{:suit :club :rank 9}]}]
       (is (= [{:suit :heart :rank 4 :pile-name :stock :index 0}
               {:suit :club  :rank 9 :pile-name :tableau-1-face-up :index 0}]
-             (game-to-list game))))))
+             (game-to-list game)))
+      (is (= game (-> game (game-to-list) (list-to-game)))))))
+
+(deftest test-list-to-game
+  (testing "Test if a list of cards can be converted to a game"
+    (let [card-list [{:suit :heart :rank 4 :pile-name :stock :index 0}
+                     {:suit :club  :rank 9 :pile-name :tableau-1-face-up :index 0}]]
+      (is (= {:stock [{:suit :heart :rank 4}]
+                       :tableau-1-face-up [{:suit :club :rank 9}]}
+             (list-to-game card-list)))
+      (is (= card-list (-> card-list (list-to-game) (game-to-list)))))))
 
 
-
-(deftest test-game-to-ui
-  (testing "Test if a new deck contains 52 cards"
-    (is (= (game-to-ui "blah") true))))
 
