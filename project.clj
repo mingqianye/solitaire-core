@@ -1,4 +1,4 @@
-(defproject solitaire-core "0.1.5"
+(defproject solitaire-core "0.1.6"
   :description "Logic for the classic solitaire game"
   :url "https://github.com/mingqianye/solitaire-core"
   :license {:name "Eclipse Public License" :url "http://www.eclipse.org/legal/epl-v10.html"}
