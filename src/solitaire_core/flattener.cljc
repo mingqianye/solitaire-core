@@ -3,6 +3,7 @@
 (defn card-to-list-item [{:keys [card pile-name index]}]
   {:suit      (:suit card)
    :rank      (:rank card)
+   :card-id   (:card-id card)
    :pile-name pile-name
    :index     index})
 
@@ -16,7 +17,7 @@
 
 
 (defn list-to-game [card-list]
-  (let [item-to-card (fn [card] {:suit (:suit card) :rank (:rank card)})
+  (let [item-to-card (fn [item] {:card-id (:card-id item) :suit (:suit item) :rank (:rank item)})
         pile-to-cards (fn [pile] (->> pile (sort-by :index) (map item-to-card)))]
     (->> card-list
       (group-by :pile-name)
