@@ -14,8 +14,8 @@
   (testing "test if a game can be converted to a list"
     (let [game {:stock [{:card-id 99 :suit :heart :rank 4 :pile-name :stock :index 0}]
                 :tableau-1-face-up [{:card-id 50 :suit :club :rank 9 :pile-name :tableau-1-face-up :index 0}]}]
-      (is (= [{:card-id 99 :suit :heart :rank 4 :pile-name :stock :index 0}
-              {:card-id 50 :suit :club  :rank 9 :pile-name :tableau-1-face-up :index 0}]
+      (is (= [{:card-id 50 :suit :club  :rank 9 :pile-name :tableau-1-face-up :index 0}
+              {:card-id 99 :suit :heart :rank 4 :pile-name :stock :index 0}]
              (game-to-list game)))
       (is (= game (-> game (game-to-list) (list-to-game)))))))
 
