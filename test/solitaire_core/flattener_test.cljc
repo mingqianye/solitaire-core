@@ -2,11 +2,6 @@
   (:require [clojure.test :refer :all]
             [solitaire-core.flattener :refer :all]))
 
-(deftest test-card-to-list-item
-  (testing "test if a card can be converted to a list item"
-    (is (= {:card-id "id" :suit "s" :rank "r" :pile-name "pn" :index "i"}
-           (card-to-list-item {:card {:card-id "id" :suit "s" :rank "r"} :pile-name "pn" :index "i"})))))
-
 (deftest test-pile-to-list
   (testing "test if a pile can be converted to a list"
     (is (= [{:card-id 2 :suit "s1" :rank "r1" :pile-name "pn" :index 0}
