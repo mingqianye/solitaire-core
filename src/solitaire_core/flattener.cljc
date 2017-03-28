@@ -17,10 +17,8 @@
 
 
 (defn list-to-game [card-list]
-  (let [item-to-card (fn [item] {:card-id (:card-id item) :suit (:suit item) :rank (:rank item)})
-        pile-to-cards (fn [pile] (->> pile (sort-by :index) (map item-to-card)))]
-    (->> card-list
+  (->> card-list
       (group-by :pile-name)
-      (map (fn [[pile-name card-list]] {pile-name (pile-to-cards card-list)}))
-      (apply merge))))
+      (map (fn [[pile-name card-list]] {pile-name (sort-by :index card-list)}))
+      (apply merge)))
 
