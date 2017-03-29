@@ -9,6 +9,12 @@
   (-> (game-generator/new-game)
       (game-to-list)))
 
+(defn refresh-waste [list-game]
+  (-> list-game 
+      (list-to-game) 
+      (game-command/refresh-waste) 
+      (game-to-list)))
+
 (defn move [{:keys [m i from to]}]
   "input: {:m list-game :i index-in-pile :from from-key :to to-key}"
   (-> {:m (list-to-game m) :i i :from from :to to}
