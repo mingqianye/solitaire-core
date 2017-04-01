@@ -69,7 +69,7 @@
                                                                   :bottom-card (last foundation-pile)})]
     (and (i=0?) 
          (or 
-           (empty-foundation?) 
+           (and (empty-foundation?) (= 1 (-> source-pile (last) :rank)))
            (can-stack-on-foundation-pile?)))))
 
 (defn valid-to-tableau? [{:keys [m i from to]}]
