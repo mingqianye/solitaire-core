@@ -82,10 +82,20 @@
                                            :to :foundation-2})))
            
     (is (false? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 3}] 
-                                           :tableau-1-face-up [{:suit :heart :rank 3}]}
+                                           :foundation-1 [{:suit :heart :rank 3}]}
                                            :i 0
                                            :from :waste
-                                           :to :tableau-1-face-up})))
+                                           :to :foundation-1})))
+    (is (false? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 3}] 
+                                           :foundation-1 []}
+                                           :i 0
+                                           :from :waste
+                                           :to :foundation-1})))
+    (is (true? (valid-to-foundation? {:m {:waste [{:suit :spade :rank 1}] 
+                                           :foundation-2 []}
+                                           :i 0
+                                           :from :waste
+                                           :to :foundation-1})))
            ))
 
 (deftest test-can-move?

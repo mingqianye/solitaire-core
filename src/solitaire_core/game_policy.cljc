@@ -62,15 +62,11 @@
 
 (defn valid-to-foundation? [{:keys [m i from to]}]
   (let [source-pile (get m from)
-        foundation-pile (get m to)
-        i=0?       #(= i 0)
-        empty-foundation? #(empty? foundation-pile)
-        can-stack-on-foundation-pile? #(can-stack-in-foundation? {:top-card (last source-pile)
-                                                                  :bottom-card (last foundation-pile)})]
-    (and (i=0?) 
-         (or 
-           (and (empty-foundation?) (= 1 (-> source-pile (last) :rank)))
-           (can-stack-on-foundation-pile?)))))
+        foundation-pile (get m to)]
+    (or 
+      (and (empty? foundation-pile) (= 1 (-> source-pile (last) :rank)))
+      (can-stack-in-foundation? {:top-card (last source-pile) :bottom-card (last foundation-pile)})
+      )))
 
 (defn valid-to-tableau? [{:keys [m i from to]}]
   (let [from-pile (get m from)
