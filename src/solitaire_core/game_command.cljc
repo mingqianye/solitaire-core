@@ -14,16 +14,6 @@
        copy-from-waste-to-stock
      )))
 
-(defn move [{:keys [m i from to]}]
-  "input: {:m game :i index-in-pile :from from-key :to to-key}"
-  (let [
-        cut-len  (- (count (get m from)) i)
-        new_from (take i (get m from))
-        new_to   (concat (get m to) (take-last cut-len (get m from)))
-        ]
-    (-> m
-      (assoc-in [from] new_from)
-      (assoc-in [to] new_to))))
 
 (defn stablize-one [game up-pile-name down-pile-name]
   (let [up-pile   (up-pile-name game)
@@ -44,3 +34,15 @@
     (stablize-one :tableau-5-face-up :tableau-5-face-down)
     (stablize-one :tableau-6-face-up :tableau-6-face-down)
     (stablize-one :tableau-7-face-up :tableau-7-face-down)))
+
+(defn move [{:keys [m i from to]}]
+  "input: {:m game :i index-in-pile :from from-key :to to-key}"
+  (let [
+        cut-len  (- (count (get m from)) i)
+        new_from (take i (get m from))
+        new_to   (concat (get m to) (take-last cut-len (get m from)))
+        ]
+    (-> m
+      (assoc-in [from] new_from)
+      (assoc-in [to] new_to)
+      (stablize))))

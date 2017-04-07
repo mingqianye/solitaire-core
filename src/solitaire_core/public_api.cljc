@@ -21,21 +21,10 @@
       (game-command/move)
       (game-to-list)))
 
-(defn stablize [list-game]
-  (-> list-game 
-      (list-to-game) 
-      (game-command/stablize) 
-      (game-to-list)))
-
 (defn won? [list-game]
   (-> list-game
       (list-to-game)
       (game-policy/won?)))
-
-(defn is-stable? [list-game]
-  (-> list-game
-      (list-to-game)
-      (game-policy/is-stable?)))
 
 (defn can-be-selected? [{:keys [m i from]}]
   (-> {:m (list-to-game m) :i i :from from}
