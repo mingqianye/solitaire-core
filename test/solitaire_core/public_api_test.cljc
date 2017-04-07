@@ -1,6 +1,6 @@
-(ns solitaire-core.public-test
+(ns solitaire-core.public-api-test
   (:require [clojure.test :refer :all]
-            [solitaire-core.public :refer :all]))
+            [solitaire-core.public-api :refer :all]))
 
 (deftest test-new-game
   (testing "test if can create a new game as list of cards"

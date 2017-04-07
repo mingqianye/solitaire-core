@@ -1,4 +1,4 @@
-(ns solitaire-core.public
+(ns solitaire-core.public-api
   (:require [solitaire-core.game-generator :as game-generator]
             [solitaire-core.game-command :as game-command]
             [solitaire-core.game-policy :as game-policy]
