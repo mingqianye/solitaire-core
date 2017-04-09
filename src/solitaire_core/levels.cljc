@@ -1,11 +1,10 @@
 (ns solitaire-core.levels
-  (:require [solitaire-core.game-generator :as game-generator])
+  (:require [solitaire-core.game-generator :as game-generator]
+            [solitaire-core.deck-generator :refer [new-deck]])
   )
 
-(defn all-levels []
-  {:random (game-generator/new-game)
-   :aces-in-tableau-piles
-    {:stock []
+(def aces-in-tableau-piles
+  #({:stock []
      :waste []
      :foundation-1 []
      :foundation-2 []
@@ -24,9 +23,15 @@
      :tableau-4-face-up [{:card-id 3 :suit :club :rank 1}]
      :tableau-5-face-up []
      :tableau-6-face-up []
-     :tableau-7-face-up []}
+     :tableau-7-face-up []}))
+
+(defn all-levels []
+  {:unshuffled new-deck
+   :random game-generator/new-game
+   :aces-in-tableau-piles aces-in-tableau-piles
    })
 
 (defn get-level [{:keys [level-name]}]
-  (get (all-levels) level-name "level-name is not found/set!"))
+  (let [level-function (get (all-levels) level-name "level-name is not found/set!")]
+    (level-function)))
   
