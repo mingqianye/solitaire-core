@@ -4,11 +4,11 @@
 
 (deftest test-new-game
   (testing "test if can create a new game as list of cards"
-    (is (= 52 (count (new-game {:level-name :random}))))))
+    (is (= 52 (count (new-game {:level-name :shuffled}))))))
 
 (deftest test-new-game-is-not-won
   (testing "test if a new game is not won, is stable, and can be selected from tableau"
-    (is (= false (won? (new-game {:level-name :random}))))
-    (is (= true (can-be-selected? {:m (new-game {:level-name :random}) 
+    (is (= false (won? (new-game {:level-name :shuffled}))))
+    (is (= true (can-be-selected? {:m (new-game {:level-name :shuffled}) 
                                    :i 0 
                                    :from :tableau-1-face-up})))))
