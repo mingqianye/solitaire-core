@@ -3,6 +3,29 @@
             [solitaire-core.deck-generator :refer [new-deck]])
   )
 
+(def all-in-stock
+  #({:stock (new-deck)
+     :waste []
+     :foundation-1 []
+     :foundation-2 []
+     :foundation-3 []
+     :foundation-4 []
+     :tableau-1-face-down []
+     :tableau-2-face-down []
+     :tableau-3-face-down []
+     :tableau-4-face-down []
+     :tableau-5-face-down []
+     :tableau-6-face-down []
+     :tableau-7-face-down []
+     :tableau-1-face-up []
+     :tableau-2-face-up []
+     :tableau-3-face-up []
+     :tableau-4-face-up []
+     :tableau-5-face-up []
+     :tableau-6-face-up []
+     :tableau-7-face-up []}))
+
+
 (def aces-in-tableau-piles
   #({:stock []
      :waste []
@@ -26,8 +49,8 @@
      :tableau-7-face-up []}))
 
 (defn all-levels []
-  {:unshuffled new-deck
-   :random game-generator/new-game
+  {:unshuffled all-in-stock
+   :shuffled game-generator/new-game
    :aces-in-tableau-piles aces-in-tableau-piles
    })
 
