@@ -1,12 +1,12 @@
 (ns solitaire-core.public-api
-  (:require [solitaire-core.game-generator :as game-generator]
-            [solitaire-core.game-command :as game-command]
+  (:require [solitaire-core.game-command :as game-command]
             [solitaire-core.game-policy :as game-policy]
+            [solitaire-core.levels :refer [get-level]]
             [solitaire-core.flattener :refer [game-to-list list-to-game]]
   ))
 
-(defn new-game []
-  (-> (game-generator/new-game)
+(defn new-game [{:keys [level-name]}]
+  (-> (get-level {:level-name level-name})
       (game-to-list)))
 
 (defn refresh-waste [list-game]
