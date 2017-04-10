@@ -5,10 +5,10 @@
 (defn refresh-waste [game]
   (if (= 0 (count (:stock game)))
     (-> game
-      (assoc :stock (reverse (:waste game)))
+      (assoc :stock (:waste game))
       (assoc :waste []))
     (-> game
-      (update :waste #(concat % (reverse (take-last 3 (:stock game)))))
+      (update :waste #(concat % (take-last 3 (:stock game))))
       (assoc :stock (drop-last 3 (:stock game))))))
 
 
