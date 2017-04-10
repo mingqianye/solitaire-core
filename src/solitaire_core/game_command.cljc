@@ -2,17 +2,14 @@
   )
 
 
-(def refresh-waste
-  (let [copy-from-waste-to-stock (fn [g] (update-in g [:stock] #(concat (reverse (:waste g)) %)))
-        clear-waste              (fn [g] (assoc-in g [:waste] []))
-        copy-from-stock-to-waste (fn [g] (assoc-in g [:waste] (reverse (take-last 3 (:stock g)))))
-        remove-from-stock        (fn [g] (update-in g [:stock] #(drop-last 3 %)))]
-    (comp
-       remove-from-stock
-       copy-from-stock-to-waste
-       clear-waste
-       copy-from-waste-to-stock
-     )))
+(defn refresh-waste [game]
+  (if (= 0 (count (:stock game)))
+    (-> game
+      (assoc :stock (reverse (:waste game)))
+      (assoc :waste []))
+    (-> game
+      (update :waste #(concat % (reverse (take-last 3 (:stock game)))))
+      (assoc :stock (drop-last 3 (:stock game))))))
 
 
 (defn stablize-one [game up-pile-name down-pile-name]

@@ -12,19 +12,22 @@
       (is (= {:stock [] :waste [:a]} (refresh-waste game)))))
   (testing "Test if can refresh 1 cards from waste to stock and back to waste"
     (let [game {:stock [] :waste [:a]}]
-      (is (= {:stock [] :waste [:a]} (refresh-waste game)))))
+      (is (= {:stock [:a] :waste []} (refresh-waste game)))))
   (testing "Test if can refresh 2 cards from waste to stock and back to waste"
     (let [game {:stock [] :waste [:a :b]}]
-      (is (= {:stock [] :waste [:a :b]} (refresh-waste game)))))
+      (is (= {:stock [:b :a] :waste []} (refresh-waste game)))))
   (testing "Test if can refresh 2 cards from stock to waste"
     (let [game {:stock [:a :b] :waste []}]
       (is (= {:stock [] :waste [:b :a]} (refresh-waste game)))))
   (testing "Test if can refresh 2 cards from stock to waste"
     (let [game {:stock [:a :b] :waste [:c]}]
-      (is (= {:stock [] :waste [:b :a :c]} (refresh-waste game)))))
+      (is (= {:stock [] :waste [:c :b :a]} (refresh-waste game)))))
   (testing "Test if can refresh 2 cards from stock to waste"
     (let [game {:stock [:a :b :c :d] :waste [:e :f :g]}]
-      (is (= {:stock [:g :f :e :a] :waste [:d :c :b]} (refresh-waste game))))))
+      (is (= {:stock [:a] :waste [:e :f :g :d :c :b]} (refresh-waste game)))))
+  (testing "Test if can restore all cards from waste to stock"
+    (let [game {:stock [] :waste [:e :f :g :d :c :b :a]}]
+      (is (= {:stock [:a :b :c :d :g :f :e] :waste []} (refresh-waste game))))))
 
 (deftest test-move
   (testing "Test if can move ith object from [from-path] to [to-path]"
