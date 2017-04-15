@@ -7,8 +7,8 @@
   (->> game
     (map (fn [[k v]] (pile-to-list {:cards v :pile-name k})))
     (flatten)
-    (sort-by :card-id))
-    (vec))
+    (sort-by :card-id)
+    (vec)))
 
 
 (defn list-to-game [card-list]
