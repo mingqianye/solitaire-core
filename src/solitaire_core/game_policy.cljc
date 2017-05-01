@@ -8,12 +8,13 @@
   #{:tableau-1-face-up :tableau-2-face-up :tableau-3-face-up :tableau-4-face-up
     :tableau-5-face-up :tableau-6-face-up :tableau-7-face-up})
 
+; if there are zero cards in non-tableau piles, then we won the game
 (defn won? [game]
-  (-> game
-    (juxt :foundation-1 :foundation-2 :foundation-3 :foundation-4)
-    flatten
-    count
-    (= 52)))
+  (let [non-tableau (juxt :stock :waste :tableau-1-face-up :tableau-2-face-up :tableau-3-face-up
+          :tableau-4-face-up :tableau-5-face-up :tableau-6-face-up :tableau-7-face-up
+          :tableau-1-face-down :tableau-2-face-down :tableau-3-face-down :tableau-4-face-down
+          :tableau-5-face-down :tableau-6-face-down :tableau-7-face-down)]
+    (every? empty? (non-tableau game))))
 
 (defn from-has-at-least-i+1-elements? [{:keys [m i from]}]
   (>= (count (get m from)) (inc i)))
